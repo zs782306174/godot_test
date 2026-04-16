@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bvalkimtbv35v"]
+
+[ext_resource type="Script" uid="uid://u5jle6ffyumb" path="res://scripts/unit_grid.gd" id="1_37kl0"]
+
+[node name="Test" type="Node3D" unique_id=985920148]
+
+[node name="UnitGrid" type="Node3D" parent="." unique_id=28008399]
+script = ExtResource("1_37kl0")
+grid_depth = 20
+grid_offset = Vector3(-5, 0, -20)
+grid_color = Color(0.046134356, 0.92601717, 0.08683274, 1)
+metadata/_custom_type_script = "uid://u5jle6ffyumb"

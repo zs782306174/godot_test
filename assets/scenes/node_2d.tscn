@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dbjivejplralk"]
+
+[node name="Node2D" type="Node2D" unique_id=897220767]
+
+[node name="Label" type="Label" parent="." unique_id=870007743]
+offset_left = 426.0
+offset_top = 200.0
+offset_right = 560.0
+offset_bottom = 281.0
+text = "asdadas"
