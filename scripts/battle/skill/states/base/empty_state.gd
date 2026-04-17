@@ -4,7 +4,7 @@ class_name EmptyState extends FSM.State
 func enter() -> void:
 	if fsm.current_skill_index:
 		fsm.wait_count_down = fsm.skill_data.wait_next_input_duration
-	else
+	else:
 		fsm.reset()
 
 ## 每帧更新时调用

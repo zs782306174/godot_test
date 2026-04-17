@@ -6,8 +6,7 @@ func enter() -> void:
 
 ## 每帧更新时调用
 func update(delta: float) -> void:
-	if condition:
-		pass
+	pass
 
 ## 退出状态时调用
 func exit() -> void:

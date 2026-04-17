@@ -1,6 +1,6 @@
 class_name SubSkill
-data: SubSkillData
+var data: SubSkillData
 func _init(_data:SubSkillData):
-    data = _data
+	data = _data
 func update(delta: float):
-    pass
+	pass
