@@ -49,9 +49,18 @@ var attribute_map: Dictionary[AttributeID, Variant] = {}
 func init_attribute(data: BattleUnitData) -> void:
 	for key in AttributeID:
 		var value = data[key] || 0
-		attribute_map[AttributeID[key]] = value
-	for id in range(0, AttributeID.BASE_ATTACK_RANGE, 5):
-		calculate_attribute(id)
+		var base_id = AttributeID[key]
+		attribute_map[base_id] = value
+		if base_id <= AttributeID.BASE_ATTACK_RANGE:
+			var add_id = base_id + 1
+			var mul_id = base_id + 2
+			var current_id = base_id + 3
+			var max_id = base_id + 4
+			attribute_map[add_id] = 0
+			attribute_map[mul_id] = 0
+			attribute_map[current_id] = value
+			if base_id <= AttributeID.BASE_MP:
+				attribute_map[max_id] = value
 		
 	
 

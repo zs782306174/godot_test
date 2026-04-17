@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://ocm6tpdol1p"]
+
+[ext_resource type="Script" uid="uid://bpmn6kxc8dext" path="res://scripts/base/SkillData.gd" id="1_hp3dd"]
+[ext_resource type="Script" uid="uid://cjt4xwpiqas8s" path="res://scripts/base/SubSkillData.gd" id="2_4ldpf"]
+[ext_resource type="Script" uid="uid://debuhgsqqg4v" path="res://scripts/base/sub_skills/MultiTriggerSubSkillData.gd" id="3_4ldpf"]
+
+[sub_resource type="Resource" id="Resource_tpgb2"]
+script = ExtResource("3_4ldpf")
+metadata/_custom_type_script = "uid://debuhgsqqg4v"
+
+[resource]
+script = ExtResource("1_hp3dd")
+sub_skills = Array[ExtResource("2_4ldpf")]([SubResource("Resource_tpgb2")])
+metadata/_custom_type_script = "uid://bpmn6kxc8dext"

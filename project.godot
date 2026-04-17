@@ -15,6 +15,7 @@ config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://assets/icon.svg"
 
 [autoload]
+
 ResManager="*res://scripts/framework/res_manager.gd"
 PoolManager="*res://scripts/framework/pool_manager.gd"
 UIManager="*res://scripts/framework/ui_manager.gd"
