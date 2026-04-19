@@ -16,13 +16,13 @@ var current_cooldown: float = 0.0
 var wait_count_down: float = 0.0
 var current_skill_index: int = 0
 var skill_count: int = 0;
-var input: SkillInput
 var sub_skills: Array[SubSkill] = []
 func _init(data: SkillData):
 	skill_data = data
 	var subs = skill_data.sub_skills
 	for i in range(subs.size()):
-		sub_skills[i] = subs[i].new()
+		var sub_skill = subs[i].skill_type.new(subs[i]) as SubSkill
+		sub_skills.append(sub_skill)
 	current_cooldown = 0.0
 	current_skill_index = 0
 	skill_count = data.sub_skills.size()
@@ -33,3 +33,8 @@ func _init(data: SkillData):
 	add_state(StateName.INTERRUPT, InterruptState.new(self))
 	add_state(StateName.COOLDOWN, CooldownState.new(self))
 	set_state(StateName.EMPTY);
+
+func reset() -> void:
+	current_skill_index = 0
+	current_cooldown = 0.0
+	wait_count_down = 0.0

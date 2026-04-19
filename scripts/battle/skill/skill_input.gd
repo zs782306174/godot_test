@@ -1,4 +1,3 @@
-extends FSM
 
 
 class_name SkillInput
