@@ -33,7 +33,10 @@ func _init(data: SkillData):
 	add_state(StateName.INTERRUPT, InterruptState.new(self))
 	add_state(StateName.COOLDOWN, CooldownState.new(self))
 	set_state(StateName.EMPTY);
-
+func input_active():
+	set_state(StateName.INPUT)
+func input_cancel():
+	set_state(StateName.EMPTY);
 func reset() -> void:
 	current_skill_index = 0
 	current_cooldown = 0.0
