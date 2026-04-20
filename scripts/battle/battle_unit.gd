@@ -1,17 +1,18 @@
 extends Node3D
 
 class_name BattleUnit
+@export var shape: Shape3D
+func init(args):
+	pass
 
-var attribute: BattleUnitAttributes
+func trigger_enter(other: BattleUnit):
+	pass
 
+func trigger_stay(other: BattleUnit):
+	pass
 
+func trigger_exit(other: BattleUnit):
+	pass
 
-
-func _init(data:BattleUnitData):
-	attribute.init_attributes(data)
-	global_position = position
-
-
-
-func update(delta: float) -> void:
+func dispose():
 	pass

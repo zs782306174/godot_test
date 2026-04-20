@@ -67,11 +67,12 @@ func _unhandled_input(event: InputEvent) -> void:
 ## 打开面板并压栈。返回面板实例，过渡动画完成前即返回。
 func push(
 	scene_path: String,
+	data,
 	transition: Transition = Transition.FADE,
 	duration: float = 0.2,
 	overlay: bool = true,
 	pause_below: bool = false,
-	data: Dictionary = {}
+	
 ) -> Control:
 	if _transitioning:
 		push_warning("UIManager: 过渡动画进行中，忽略 push")
@@ -117,9 +118,6 @@ func push(
 	if panel.has_method("on_panel_opened"):
 		panel.on_panel_opened(data)
 	panel_pushed.emit(scene_path)
-	if has_node("/root/EventBus"):
-		get_node("/root/EventBus").emit("ui.panel_pushed", {"scene_path": scene_path})
-
 	return panel
 
 
@@ -161,12 +159,8 @@ func pop(
 
 	# 信号
 	panel_popped.emit(entry.scene_path)
-	if has_node("/root/EventBus"):
-		get_node("/root/EventBus").emit("ui.panel_popped", {"scene_path": entry.scene_path})
 	if _stack.is_empty():
 		stack_emptied.emit()
-		if has_node("/root/EventBus"):
-			get_node("/root/EventBus").emit("ui.stack_emptied", {})
 
 
 ## 关闭到指定面板（保留该面板，其上全部关闭）。
@@ -217,7 +211,7 @@ func replace(
 ) -> Control:
 	if not _stack.is_empty():
 		await pop(Transition.NONE, 0.0)
-	return await push(scene_path, transition, duration, overlay, false, data)
+	return await push(scene_path, data, transition, duration, overlay, false)
 
 
 ## 当前栈顶面板。栈为空时返回 null。

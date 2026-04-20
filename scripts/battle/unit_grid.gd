@@ -42,9 +42,9 @@ extends Node3D
 
 ## 每个格子的数据
 class Cell:
-	var flow_dir: Vector2i = Vector2i.ZERO  ## 流场方向（指向下一格）
-	var unit                                ## 占用单位（null 表示空格）
-	var wall_dir: int = 0                   ## 墙壁位掩码 N=1 E=2 S=4 W=8
+	var flow_dir: Vector2i = Vector2i.ZERO
+	var units: Dictionary[BattleUnit, bool] = {}
+	var edge: Array[Vector2]
 
 # grid[x + z * grid_width]
 var grid: Array[Cell] = []
@@ -94,61 +94,34 @@ func is_valid_pos(grid_pos: Vector2i) -> bool:
 
 # ── 单位管理 ──────────────────────────────────────────────────────────────────
 
-## 格子是否被占用
-func is_occupied(grid_pos: Vector2i) -> bool:
-	return is_valid_pos(grid_pos) and grid[_cell_index(grid_pos)].unit != null
-
 
 ## 获取格子上的单位，空格返回 null
-func get_unit(grid_pos: Vector2i) -> Variant:
+func get_units(grid_pos: Vector2i) :
 	if not is_valid_pos(grid_pos):
 		return null
-	return grid[_cell_index(grid_pos)].unit
+	return grid[_cell_index(grid_pos)].units;
 
 
 ## 放置单位到指定格子，越界或已占用返回 false
-func place_unit(unit: Object, grid_pos: Vector2i) -> bool:
-	if not is_valid_pos(grid_pos) or is_occupied(grid_pos):
+func place_unit(unit: BattleUnit, grid_pos: Vector2i) -> bool:
+	if not is_valid_pos(grid_pos) :
 		return false
-	grid[_cell_index(grid_pos)].unit = unit
+	grid[_cell_index(grid_pos)].units.set(unit,true)
 	return true
 
 
 ## 从指定格子移除单位，格子为空返回 false
-func remove_unit(grid_pos: Vector2i) -> bool:
-	if not is_occupied(grid_pos):
+func remove_unit(unit: BattleUnit, grid_pos: Vector2i) -> bool:
+	if not is_valid_pos(grid_pos):
 		return false
-	grid[_cell_index(grid_pos)].unit = null
+	grid[_cell_index(grid_pos)].units.erase(unit)
 	return true
-
-
-## 将单位从 from 移动到 to，失败返回 false
-func move_unit(from: Vector2i, to: Vector2i) -> bool:
-	if not is_occupied(from):
-		return false
-	if not is_valid_pos(to) or is_occupied(to):
-		return false
-	var fi := _cell_index(from)
-	var ti := _cell_index(to)
-	grid[ti].unit = grid[fi].unit
-	grid[fi].unit = null
-	return true
-
-
-## 返回所有已占用的格子坐标
-func get_occupied_positions() -> Array[Vector2i]:
-	var result: Array[Vector2i] = []
-	for i in grid.size():
-		if grid[i].unit != null:
-			@warning_ignore("integer_division")
-			result.append(Vector2i(i % grid_width, i / grid_width))
-	return result
 
 
 ## 清空所有单位（保留 flow_dir/wall_dir 数据）
 func clear_units() -> void:
 	for cell: Cell in grid:
-		cell.unit = null
+		cell.units.clear()
 
 
 ## 清空整个网格（含 flow_dir/wall_dir）
@@ -169,16 +142,3 @@ func get_flow_dir(grid_pos: Vector2i) -> Vector2i:
 	if not is_valid_pos(grid_pos):
 		return Vector2i.ZERO
 	return grid[_cell_index(grid_pos)].flow_dir
-
-
-## 设置格子墙壁位掩码（N=1 E=2 S=4 W=8）
-func set_wall_dir(grid_pos: Vector2i, mask: int) -> void:
-	if is_valid_pos(grid_pos):
-		grid[_cell_index(grid_pos)].wall_dir = mask
-
-
-## 获取格子墙壁位掩码
-func get_wall_dir(grid_pos: Vector2i) -> int:
-	if not is_valid_pos(grid_pos):
-		return 0
-	return grid[_cell_index(grid_pos)].wall_dir

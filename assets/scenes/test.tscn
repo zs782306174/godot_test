@@ -1,12 +1,35 @@
 [gd_scene format=3 uid="uid://bvalkimtbv35v"]
 
-[ext_resource type="Script" uid="uid://u5jle6ffyumb" path="res://scripts/unit_grid.gd" id="1_37kl0"]
+[ext_resource type="Script" uid="uid://u5jle6ffyumb" path="res://scripts/battle/unit_grid.gd" id="1_37kl0"]
+[ext_resource type="Script" uid="uid://bvtdefx0nib6m" path="res://scripts/battle/battle_unit.gd" id="2_u05g1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_np4up"]
+radius = 8.56
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u05g1"]
 
 [node name="Test" type="Node3D" unique_id=985920148]
 
 [node name="UnitGrid" type="Node3D" parent="." unique_id=28008399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32421303, 0)
 script = ExtResource("1_37kl0")
+cell_size = 2.0
 grid_depth = 20
-grid_offset = Vector3(-5, 0, -20)
+grid_offset = Vector3(-10, 0, -40)
 grid_color = Color(0.046134356, 0.92601717, 0.08683274, 1)
 metadata/_custom_type_script = "uid://u5jle6ffyumb"
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1516035310]
+script = ExtResource("2_u05g1")
+shape = SubResource("SphereShape3D_np4up")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1912502026]
+transform = Transform3D(1, 0, 0, 0, 0.93728197, 0.34857205, 0, -0.34857205, 0.93728197, 0, 20.458015, 9.498359)
+fov = 54.8
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=726795788]
+transform = Transform3D(1, 0, 0, 0, 0.52398586, 0.85172695, 0, -0.85172695, 0.52398586, 0, 43.77823, -7.6488876)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1230166034]
+transform = Transform3D(40, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, -21.736893)
+mesh = SubResource("PlaneMesh_u05g1")
