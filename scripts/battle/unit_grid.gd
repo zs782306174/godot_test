@@ -35,7 +35,7 @@ extends Node3D
 		update_gizmos()
 
 ## 网格线颜色
-@export var grid_color: Color = Color(0.4, 0.7, 1.0, 0.6):
+@export var grid_color: Color = Color(0.0, 1.0, 0.0, 1.0):
 	set(value):
 		grid_color = value
 		update_gizmos()
