@@ -46,3 +46,7 @@ func get_world_vertices_2d() -> PackedVector2Array:
 ## 检查 XZ 坐标点是否在多边形障碍内
 func contains_point(point: Vector2) -> bool:
 	return Geometry2D.is_point_in_polygon(point, get_world_vertices_2d())
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		vertices_changed.emit()
