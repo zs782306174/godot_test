@@ -2,22 +2,28 @@
 
 [ext_resource type="Script" uid="uid://u5jle6ffyumb" path="res://scripts/battle/unit_grid.gd" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://bvtdefx0nib6m" path="res://scripts/battle/battle_unit.gd" id="2_u05g1"]
+[ext_resource type="Script" uid="uid://do6uuf1f3ox85" path="res://scripts/battle/grid_obstacle.gd" id="3_np4up"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_np4up"]
 radius = 8.56
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_u05g1"]
-
 [node name="Test" type="Node3D" unique_id=985920148]
 
 [node name="UnitGrid" type="Node3D" parent="." unique_id=28008399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32421303, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39283943, 0.32421303, 0)
 script = ExtResource("1_37kl0")
 cell_size = 2.0
 grid_depth = 20
 grid_offset = Vector3(-10, 0, -40)
 grid_color = Color(0.046134356, 0.92601717, 0.08683274, 1)
+cell_type_colors = Array[Color]([Color(0, 1, 0, 0.02745098), Color(0.96862745, 0, 0.015686275, 0.019607844)])
 metadata/_custom_type_script = "uid://u5jle6ffyumb"
+
+[node name="GridObstacle" type="Node3D" parent="UnitGrid" unique_id=640862369]
+transform = Transform3D(-0.8910064, 0, -0.45399058, 0, 1, 0, 0.45399055, 0, -0.89100647, 0, 0, -6.625783)
+script = ExtResource("3_np4up")
+vertices = PackedVector3Array(12.426139, 0, 11.871452, 10.39981, 0, -0.9295211, 4.432139, 0, -1.9542842, 4.6569257, 0, 7.3165207)
+metadata/_custom_type_script = "uid://do6uuf1f3ox85"
 
 [node name="Node3D" type="Node3D" parent="." unique_id=1516035310]
 script = ExtResource("2_u05g1")
@@ -29,7 +35,3 @@ fov = 54.8
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=726795788]
 transform = Transform3D(1, 0, 0, 0, 0.52398586, 0.85172695, 0, -0.85172695, 0.52398586, 0, 43.77823, -7.6488876)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1230166034]
-transform = Transform3D(40, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, -21.736893)
-mesh = SubResource("PlaneMesh_u05g1")
